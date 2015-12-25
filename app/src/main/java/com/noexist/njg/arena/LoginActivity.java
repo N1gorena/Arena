@@ -1,14 +1,9 @@
 package com.noexist.njg.arena;
 
-import android.content.res.Resources;
-import android.opengl.GLES20;
-import android.opengl.Matrix;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.io.FileNotFoundException;
-import java.nio.FloatBuffer;
 
 public class LoginActivity extends AppCompatActivity {
 

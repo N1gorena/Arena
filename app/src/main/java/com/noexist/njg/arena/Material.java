@@ -34,6 +34,13 @@ public class Material {
         mDiffuse[2] = v2;
     }
     public void setSpecular(float v, float v1, float v2){}
+
+    public float[] getAmbient(){
+        return mAmbient;
+    }
+    public float[] getDiffuse(){
+        return mDiffuse;
+    }
     public float getAmbientX(){
         return mAmbient[0];
     }

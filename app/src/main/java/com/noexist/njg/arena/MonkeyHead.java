@@ -22,7 +22,7 @@ public class MonkeyHead extends Gobject {
         GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, mGPUDataBuffer[ELEMENT_BUFFER]);
         GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, mElementBuffer.capacity() * 4, mElementBuffer, GLES20.GL_STATIC_DRAW);
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
-        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER,0);
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     @Override
@@ -37,9 +37,20 @@ public class MonkeyHead extends Gobject {
         GLES20.glVertexAttribPointer(normalLocation, 3, GLES20.GL_FLOAT, false, 24, 12);
         int offset = 0;
         for (int i = 0; i < mfaceCounts.length; i++){//Each face in the count has three elements, each face is 12 bytes(3 floats).
+            GLputMaterial(mMaterials.get(mMaterialOrder.pollFirst()));
             offset += (i==0)?0:mfaceCounts[i-1]*12;
-            GLES20.glDrawElements(GLES20.GL_TRIANGLES,mfaceCounts[i]*3,GLES20.GL_UNSIGNED_INT,offset);
+            GLES20.glDrawElements(GLES20.GL_TRIANGLES, mfaceCounts[i] * 3, GLES20.GL_UNSIGNED_INT, offset);
         }
         //GLES20.glDrawElements(GLES20.GL_TRIANGLES, 1, GLES20.GL_UNSIGNED_INT,0);
+    }
+    private void GLputMaterial(Material m){
+        mMaterialOrder.add(m.getName());
+        int ambientLocation = GLES20.glGetUniformLocation(mProgram,"ambient");
+        int diffuseLocation = GLES20.glGetUniformLocation(mProgram,"diffuse");
+        int specularLocation = GLES20.glGetUniformLocation(mProgram,"specular");
+
+        GLES20.glUniform3f(ambientLocation, m.getAmbientX(), m.getAmbientY(), m.getAmbientZ());
+        GLES20.glUniform3f(diffuseLocation, m.getDiffuseX(), m.getDiffuseY(), m.getDiffuseZ());
+
     }
 }

@@ -75,6 +75,7 @@ public class TestRenderer implements GLSurfaceView.Renderer {
         //My helper function
         setCamera();
         //
+        /*
         float[] test = {0.0f,0.0f,-0.5f,0.0f,1.0f,0.0f,
         0.0f,0.5f,0.0f,0.0f,1.0f,0.0f,
         0.0f,0.0f,0.5f,0.0f,1.0f,0.0f};
@@ -88,16 +89,16 @@ public class TestRenderer implements GLSurfaceView.Renderer {
         int[] temp = new int[1];
         GLES20.glGenBuffers(1, temp, 0);
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, temp[0]);
-        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, FB.capacity() * 4, FB, GLES20.GL_STATIC_DRAW);
+        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, FB.capacity() * 4, FB, GLES20.GL_STATIC_DRAW);*/
         GLES20.glUseProgram(mProgram);
-        GLES20.glUniformMatrix4fv(GLES20.glGetUniformLocation(mProgram, "world"), 1, false, mW, 0);
+        //GLES20.glUniformMatrix4fv(GLES20.glGetUniformLocation(mProgram, "world"), 1, false, mW, 0);
 
-        GLES20.glEnableVertexAttribArray(GLES20.glGetAttribLocation(mProgram, "normal"));
-        GLES20.glEnableVertexAttribArray(GLES20.glGetAttribLocation(mProgram, "position"));
+        //GLES20.glEnableVertexAttribArray(GLES20.glGetAttribLocation(mProgram, "normal"));
+        //GLES20.glEnableVertexAttribArray(GLES20.glGetAttribLocation(mProgram, "position"));
         //Log.d("DEBUG", "" + GLES20.glGetAttribLocation(mProgram, "normal"));
-        GLES20.glVertexAttribPointer(GLES20.glGetAttribLocation(mProgram, "position"), 3, GLES20.GL_FLOAT, false, 24, 0);
-        GLES20.glVertexAttribPointer(GLES20.glGetAttribLocation(mProgram, "normal"), 3, GLES20.GL_FLOAT, false, 24, 12);
-        GLES20.glDrawElements(GLES20.GL_TRIANGLES, 3, GLES20.GL_UNSIGNED_INT, IB);
+        //GLES20.glVertexAttribPointer(GLES20.glGetAttribLocation(mProgram, "position"), 3, GLES20.GL_FLOAT, false, 24, 0);
+        //GLES20.glVertexAttribPointer(GLES20.glGetAttribLocation(mProgram, "normal"), 3, GLES20.GL_FLOAT, false, 24, 12);
+        //GLES20.glDrawElements(GLES20.GL_TRIANGLES, 3, GLES20.GL_UNSIGNED_INT, IB);
 
         mScene.show();
     }
@@ -124,12 +125,12 @@ public class TestRenderer implements GLSurfaceView.Renderer {
     }
     private void setLight(){
         int lightColorPosition = GLES20.glGetUniformLocation(mProgram, "lightColor");
-        int testObjectColor = GLES20.glGetUniformLocation(mProgram,"objectColor");
+        //int testObjectColor = GLES20.glGetUniformLocation(mProgram,"objectColor");
         int lightPositionPosition = GLES20.glGetUniformLocation(mProgram,"lightPosition");
 
         GLES20.glUniform3f(lightColorPosition,1.0f,1.0f,1.0f);
-        GLES20.glUniform3f(testObjectColor,1.0f,0.0f,0.0f);
-        GLES20.glUniform3f(lightPositionPosition,0.0f,10.8f,0.0f);
+        //GLES20.glUniform3f(testObjectColor,1.0f,0.0f,0.0f);
+        GLES20.glUniform3f(lightPositionPosition,0.0f,0.0f,5.0f);
 
     }
 }

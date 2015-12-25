@@ -72,6 +72,7 @@ public class OBJParser {
                         fileParser.nextLine();
                         break;
                     case "f":
+                        Log.d("DEBUG","TC"+1);
                         //PARSE: Get the 3 vertex indices of the given face. Get the face normal index for process step.
                         fileParser.useDelimiter(Pattern.compile("[\\/\\s]"));
                         int firstVertOfFace = fileParser.nextInt() - 1;
@@ -119,7 +120,7 @@ public class OBJParser {
                         mMaterialLibraries.add(mAndroidResources.openRawResource(matID));
                         break;
                     case "usemtl":
-                        mtlOrder.addFirst(fileParser.nextLine());
+                        mtlOrder.addLast(fileParser.nextLine());
                         currentMaterialFC++;
                         break;
                     case "s":
@@ -159,7 +160,7 @@ public class OBJParser {
             }
         }
         faceCounts = new int[mMaterials.size()];
-        Arrays.fill(faceCounts,-1);
+        //Arrays.fill(faceCounts,0);
     }
     public FloatBuffer getVertices(){
         float[] toReturn = new float[vertexArray.size()+(vertexExtrasArray.size()*3) + (mMaterials.size()*6)];
@@ -189,7 +190,7 @@ public class OBJParser {
         int[] toReturn = new int[elementArray.size()];
         for (int i = 0 ; i < elementArray.size() ; i++){
             toReturn[i] = elementArray.get(i);
-            //Log.d("DEBUG:Meth:getElements",""+toReturn[i]);
+            Log.d("DEBUG:Meth:getElements",""+toReturn[i]);
         }
         IntBuffer bufferToReturn = ByteBuffer.allocateDirect(4*toReturn.length).order(ByteOrder.nativeOrder()).asIntBuffer();
         bufferToReturn.put(toReturn).position(0);

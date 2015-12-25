@@ -26,20 +26,24 @@ public class ShaderStore {
             "gl_Position = clip*camera*world*vec4(position,1.0);"+
             "}";
     private String fragmentSourceCode = "precision mediump float;" +
+            "uniform vec3 ambient;"+
+            //"uniform vec3 specular;"+
+            "uniform vec3 diffuse;"+
             "uniform vec3 lightColor;" +
-            "uniform vec3 objectColor;"+
+            //"uniform vec3 objectColor;"+
             "uniform vec3 lightPosition;"+
             "varying vec3 fragPosition;"+
             "varying vec3 normalVector;"+
+
             "void main() {"+
+            //Diffuse
             "vec3 pointer = normalize(lightPosition-fragPosition);"+
             "float affect = max(dot(normalVector,pointer),0.0);"+
-            "vec3 diffuseLight = affect*lightColor;"+
+            "vec3 diffuseLight = (affect*diffuse)*lightColor;"+
+            //Ambient
+            "vec3 ambientLight = ambient*lightColor;"+
 
-            "float ambientStrength = 0.35f;"+
-            "vec3 ambientLight = ambientStrength*lightColor;"+
-
-            "vec3 result = (ambientLight+diffuseLight)*objectColor;"+
+            "vec3 result = (ambientLight+diffuseLight);"+
             "  gl_FragColor = vec4(result,0.0f);" +
             "}";
 
